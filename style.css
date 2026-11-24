@@ -1,0 +1,135 @@
+/* =============================================================
+   Terminal pessoal — style.css
+   Visual único: fósforo sobre vidro escuro.
+   O tema troca apenas a cor do fósforo.
+   ============================================================= */
+
+/* ---------- 1. Cores dos temas ---------- */
+:root{
+  --bg:#050f09;
+  --panel:#07160d;
+  --fg:#46ff7a;
+  --dim:#2f9e55;
+  --hi:#c8ffd6;
+  --err:#ff7a6b;
+  --line:#14452a;
+  --glow:rgba(70,255,122,.35);
+  --scan:
+    radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.35) 100%),
+    repeating-linear-gradient(to bottom,rgba(0,0,0,.14) 0 1px,transparent 1px 3px);
+  --font-term:"VT323","Courier New",monospace;
+  --font-ui:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+:root[data-tema="ambar"]{--bg:#110a00;--panel:#190f02;--fg:#ffb62e;--dim:#b37a14;--hi:#ffe3a6;--err:#ff7a6b;--line:#4a3009;--glow:rgba(255,182,46,.35)}
+:root[data-tema="azul"]{--bg:#030b14;--panel:#06131f;--fg:#63d4ff;--dim:#2f86ad;--hi:#d3f1ff;--err:#ff8a7a;--line:#123a55;--glow:rgba(99,212,255,.35)}
+:root[data-tema="branco"]{--bg:#0b0b0c;--panel:#111113;--fg:#ececec;--dim:#8b8b90;--hi:#ffffff;--err:#ff8a7a;--line:#34343a;--glow:rgba(236,236,236,.22)}
+/* papel e tinta: o único tema claro. Sem fósforo, sem brilho. */
+:root[data-tema="papel"]{
+  --bg:#ded8c8;--panel:#fbf7ec;--fg:#33405e;--dim:#7b8395;--hi:#101d38;--err:#b23a34;--line:#cfc7b2;--glow:rgba(51,64,94,.10);
+  --scan:repeating-linear-gradient(to bottom,rgba(120,110,90,.055) 0 1px,transparent 1px 4px);
+  color-scheme:light;
+}
+:root[data-tema="neon"]{--bg:#12001f;--panel:#1c0030;--fg:#ff5ce1;--dim:#a455bd;--hi:#ffe8fc;--err:#ff7a6b;--line:#4b1a66;--glow:rgba(255,92,225,.35)}
+:root[data-tema="oitenta"]{--bg:#0c0224;--panel:#150a33;--fg:#00eaff;--dim:#7d6cb8;--hi:#fff2a8;--err:#ff5f6d;--line:#3b2572;--glow:rgba(0,234,255,.30)}
+/* no tema claro o brilho de fósforo não faz sentido */
+:root[data-tema="papel"] .ln,
+:root[data-tema="papel"] .pr,
+:root[data-tema="papel"] #cmd,
+:root[data-tema="papel"] .logo,
+:root[data-tema="papel"] .ln.echo{text-shadow:none}
+
+/* ---------- 2. Base ---------- */
+*{box-sizing:border-box}
+html,body{height:100%}
+html{background:var(--bg)}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--font-term);
+  font-size:22px;
+  line-height:1.25;
+  padding-block:12px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+
+/* ---------- 3. A tela ---------- */
+.screen{
+  height:100%;max-width:940px;margin:0 auto;display:flex;flex-direction:column;min-height:0;
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative;
+  box-shadow:0 0 0 1px rgba(0,0,0,.4),0 0 60px var(--glow);
+}
+.screen::after{ /* linhas de varredura e vinheta (muda com o tema) */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:var(--scan);
+}
+
+/* ---------- 4. Barra de cima ---------- */
+.bar{
+  display:flex;align-items:center;gap:12px;padding:8px 14px;border-bottom:1px solid var(--line);
+  font-family:var(--font-ui);font-size:12px;letter-spacing:.04em;color:var(--dim);flex:none;
+}
+.bar b{color:var(--fg);font-weight:600}
+.bar .sp{flex:1}
+.dots{display:flex;gap:6px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+
+/* ---------- 5. Saída ---------- */
+#out{flex:1;min-height:0;overflow-y:auto;padding:14px 16px 6px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ln{white-space:pre-wrap;overflow-wrap:anywhere;text-shadow:0 0 6px var(--glow);min-height:1.25em}
+.ln.hi{color:var(--hi)}
+.ln.dim{color:var(--dim);text-shadow:none}
+.ln.err{color:var(--err);text-shadow:none}
+.ln.echo{color:var(--hi)}
+.logo{font-size:clamp(46px,12vw,84px);line-height:.9;letter-spacing:.04em;color:var(--hi);text-shadow:0 0 14px var(--glow),0 0 2px var(--fg);margin:4px 0 6px}
+.logo span{color:var(--fg)}
+
+/* ---------- 6. Linha de comando ---------- */
+.row{display:flex;align-items:center;gap:8px;padding:6px 16px 10px;flex:none}
+.pr{color:var(--hi);white-space:nowrap;text-shadow:0 0 6px var(--glow)}
+#cmd{
+  flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--hi);font:inherit;caret-color:var(--fg);padding:0;
+  text-shadow:0 0 6px var(--glow);
+}
+
+/* ---------- 7. Atalhos ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px 14px;border-top:1px solid var(--line);flex:none}
+.chips button{
+  font-family:var(--font-ui);font-size:12px;color:var(--fg);background:transparent;border:1px solid var(--line);
+  border-radius:6px;padding:6px 10px;cursor:pointer;letter-spacing:.03em;
+}
+.chips button:hover{border-color:var(--fg);color:var(--hi)}
+.chips button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.chips .lab{font-family:var(--font-ui);font-size:12px;color:var(--dim);align-self:center}
+/* o botão do som fica destacado quando está ligado */
+.chips button.on{border-color:var(--fg);color:var(--hi);background:color-mix(in srgb,var(--fg) 14%,transparent)}
+
+/* ---------- 8. Telas pequenas ---------- */
+@media (max-width:520px){
+  body{font-size:20px}
+  .bar .hide-s{display:none}
+}
+
+/* ---------- 9. Cursor piscante (opcional, pronto para usar) ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .cur{display:inline-block;width:.55em;height:1em;background:var(--fg);vertical-align:-.12em;animation:bl 1s steps(1) infinite}
+  @keyframes bl{50%{opacity:0}}
+}
+@media (prefers-reduced-motion:reduce){
+  .cur{display:inline-block;width:.55em;height:1em;background:var(--fg);vertical-align:-.12em}
+}
+
+/* ---------- 10. Versão em texto (só aparece sem JavaScript) ---------- */
+.texto{
+  max-width:640px;margin:24px auto;padding:22px 24px;
+  font-family:var(--font-ui);font-size:15px;line-height:1.65;color:var(--fg);
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;
+}
+.texto h1{font-size:21px;color:var(--hi);margin:0 0 10px}
+.texto h2{font-size:15px;color:var(--hi);margin:24px 0 6px;letter-spacing:.04em;text-transform:uppercase}
+.texto ul{margin:6px 0;padding-left:20px}
+.texto li{margin:3px 0}
+.texto a{color:var(--hi)}
+.texto .aviso{margin-top:24px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}

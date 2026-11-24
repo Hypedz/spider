@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Terminal pessoal de Victor (Spider): um site interativo onde você digita comandos para ver meus projetos, gostos, diário, contato e jogos.">
+
+  <title>Spider 🕷🕸</title>
+
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Ficha do site para o Google (dados estruturados) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Victor",
+    "alternateName": "Spider",
+    "email": "mailto:whyterdzn@gmail.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "São Paulo" },
+    "description": "Terminal pessoal de Victor (Spider): projetos, gostos, diário, contato e jogos em um site interativo."
+  }
+  </script>
+</head>
+<body>
+
+  <div class="screen" id="screen">
+
+    <!-- Barra de cima -->
+    <div class="bar">
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <b id="who">visitante@terminal</b>
+      <span class="hide-s" id="stat"></span>
+      <span class="sp"></span>
+      <span id="clock"></span>
+    </div>
+
+    <!-- Saída do terminal -->
+    <div id="out" role="log" aria-live="polite"></div>
+
+    <!-- Linha de comando -->
+    <label class="row" for="cmd">
+      <span class="pr" id="pr">visitante@terminal:~$</span>
+      <input id="cmd" type="text" autocomplete="off" autocapitalize="off" autocorrect="off"
+             spellcheck="false" aria-label="Linha de comando">
+    </label>
+
+    <!-- Atalhos (preenchidos pelo script.js) -->
+    <div class="chips" id="chips"><span class="lab">atalhos:</span></div>
+
+  </div>
+
+  <!-- Versão em texto: só aparece para quem está sem JavaScript
+       (e é o que os buscadores leem primeiro). Ao mudar seus dados no
+       script.js, vale atualizar este texto também. -->
+  <noscript>
+    <div class="texto">
+      <h1>Victor “Spider”</h1>
+      <p>22 anos, de São Paulo. Nas horas vagas: jogos, filmes, séries e músicas.</p>
+      <p>Este site é um terminal: você digita comandos para navegar por ele.
+         Ele precisa de JavaScript para funcionar — abaixo está a versão em texto.</p>
+
+      <h2>Projetos</h2>
+      <ul>
+        <li>cafe-do-bairro — mapa ilustrado dos cafés da minha rua (concluído)</li>
+        <li>fita-sonora — coleção de gravações de sons da cidade (em andamento)</li>
+        <li>jardim-de-notas — caderno digital com ideias soltas (em andamento)</li>
+        <li>radio-casa — rádio caseira com playlists por humor (pausado)</li>
+        <li>cartas-sem-destino — cartas escritas para estranhos (em andamento)</li>
+        <li>teclado-de-1987 — restauração de um teclado antigo (concluído)</li>
+      </ul>
+
+      <h2>Na estante</h2>
+      <ul>
+        <li>Livro: <em>O Nome da Rosa</em>, de Umberto Eco — lendo agora</li>
+        <li>Livro: <em>Torto Arado</em>, de Itamar Vieira Junior — lido</li>
+        <li>Filme: <em>Paris, Texas</em>, de Wim Wenders — na lista</li>
+        <li>Filme: <em>Stalker</em>, de Andrei Tarkovski — assistido</li>
+      </ul>
+
+      <h2>Contato</h2>
+      <p>e-mail: <a href="mailto:whyterdzn@gmail.com">whyterdzn@gmail.com</a><br>
+         rede: @vultzin</p>
+
+      <p class="aviso">Dentro do terminal também tem: diário, livro de visitas, quiz,
+         biscoito da sorte, jogo da forca, jogo da velha, snake — e alguns segredos
+         escondidos para quem procurar.</p>
+    </div>
+  </noscript>
+
+  <script src="script.js"></script>
+</body>
+</html>
